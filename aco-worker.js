@@ -1,6 +1,6 @@
 // General constants
 const NUM_SCHOOLS = 10;
-const NUM_PREFERENCE_ENTRIES = 5;
+const NUM_PREFERENCE_ENTRIES = 7;
 const NUM_STUDENTS = 1000;
 const AVG_NUM_STUDENTS_PER_SCHOOL = 120;
 const MAX_NUM_STUDENT_DEVIATION = 20;
@@ -160,8 +160,17 @@ function strengthenPheromones(schoolsPerStudent) {
 
 function calculateRandomMatchScore() {
     const schoolsPerStudent = [];
+    const availablePlaces = schoolCapacities.slice();
     for (var i = 0; i < NUM_STUDENTS; i++) {
-        schoolsPerStudent.push(Math.floor(Math.random() * NUM_SCHOOLS))
+        const schoolPool = [];
+        availablePlaces.forEach(function (capacity, index) {
+            if (capacity > 0) {
+                schoolPool.push(index);
+            }
+        });
+        const pickedSchool = schoolPool[Math.floor(Math.random() * schoolPool.length)];
+        schoolsPerStudent.push(pickedSchool);
+        availablePlaces[pickedSchool]--;
     }
 
     return computeSolutionScore(schoolsPerStudent);
