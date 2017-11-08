@@ -19,8 +19,8 @@ $(function () {
 
 function updateGenerationChart(generationScores) {
     var ctx = document.getElementById("generationChart").getContext('2d');
-    ctx.width = 400;
-    ctx.height = 400;
+    ctx.canvas.width = 400;
+    ctx.canvas.height = 400;
     new Chart(ctx, {
         type: 'line',
         data: {
